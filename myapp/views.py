@@ -16,7 +16,14 @@ def login(request):
     return render(request,'login.html')
 
 def video_stream():
-    cap = cv2.VideoCapture(0)  # Open webcam
+    for i in range(10):
+        cap = cv2.VideoCapture(i)
+        if cap.isOpened():
+            print(f"Camera found at index {i}")
+            cap.release()
+            break
+
+    cap = cv2.VideoCapture(i)  # Open webcam
     while True:
         success, frame = cap.read()
         if not success:
